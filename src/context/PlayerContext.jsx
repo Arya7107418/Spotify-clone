@@ -31,6 +31,22 @@ const PlayerContextProvider = (props) => {
       setPlayStatus(true);
     }
 
+    const previous = async (id) => {
+        if (track.id>0) {
+            await setTrack(songsData[track.id-1]);
+            await audioRef.current.play();
+            setPlayStatus(true);
+        }
+    }
+
+    const next = async (id) => {
+        if (track.id<songsData.length-1) {
+            await setTrack(songsData[track.id+1]);
+            await audioRef.current.play();
+            setPlayStatus(true);
+        }
+    }
+
     // Use effect to update time
     useEffect(() => {
         const updateTime = () => {
@@ -63,15 +79,19 @@ const PlayerContextProvider = (props) => {
         audioRef,
         seekBg,
         seekBar,
-        track,
-        setTrack,
-        playStatus,
-        setPlayStatus,
-        time,
-        setTime,
-        play,
-        pause,
-        playWithId
+        track,setTrack,
+        playStatus,setPlayStatus,
+        time,setTime,
+        play,pause,
+        playWithId,
+        previous,next
     };
 
     return (
+        <PlayerContext.Provider value={contextValue}>
+            {props.children}
+        </PlayerContext.Provider>
+    );
+};
+
+export default PlayerContextProvider;
