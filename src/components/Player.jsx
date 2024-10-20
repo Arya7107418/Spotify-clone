@@ -3,7 +3,7 @@ import { assets } from '../assets/assets';
 import { PlayerContext } from '../context/PlayerContext';
 
 const Player = () => {
-  const { track, seekBg, seekBar, playStatus, play, pause, time,previous,next} = useContext(PlayerContext);
+  const { track, seekBg, seekBar, playStatus, play, pause, time,previous,next,seekSong} = useContext(PlayerContext);
 
   return (
     <div className='h-[10%] bg-black flex justify-between items-center text-white px-4'>
@@ -28,7 +28,7 @@ const Player = () => {
         </div>
         <div className='flex items-center gap-5'>
           <p>{time.currentTime.minute}:{time.currentTime.second < 10 ? `0${time.currentTime.second}` : time.currentTime.second}</p>
-          <div ref={seekBg} className='bg-gray-300 w-[60vw] max-w-[500px] rounded-full cursor-pointer'>
+          <div onClick={seekSong} ref={seekBg} className='bg-gray-300 w-[60vw] max-w-[500px] rounded-full cursor-pointer'>
             <hr ref={seekBar} className='h-1 border-none w-0 bg-green-800 rounded-full' />
           </div>
           <p>{time.totalTime.minute}:{time.totalTime.second < 10 ? `0${time.totalTime.second}` : time.totalTime.second}</p>
